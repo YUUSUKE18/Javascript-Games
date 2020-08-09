@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //const scoreDisplay = document.getElementById("score");
   const width = 8;
   const squares = [];
-  //let score = 0;
+  let score = 0;
 
   const candyColors = ["yellow", "red", "blue", "purple"];
 
@@ -156,4 +156,27 @@ document.addEventListener("DOMContentLoaded", () => {
     } else
       squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged;
   }
+
+  function checkRowForThree() {
+    for (i = 0; i < 61; i++) {
+      let rowOfThree = [i, i + 1, i + 2];
+      let decideColor = squares[i].style.backgroundColor;
+      const isBlank = squares[i].style.backgroundColor === "";
+
+      if (
+        rowOfThree.every(
+          (index) =>
+            squares[index].style.backgroundColor === decideColor && !isBlank
+        )
+      ) {
+        score += 3;
+        rowOfThree.forEach((index) => {
+          squares[index].style.backgroundColor = "";
+        });
+      }
+    }
+  }
+  window.setInterval(function () {
+    checkRowForThree();
+  }, 100);
 });
