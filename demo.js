@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const squares = [];
   let score = 0;
 
-  const candyColors = ["yellow", "red", "blue", "purple"];
+  const candyColors = ["yellow", "red", "blue", "purple", "green", "pink"];
 
   //create your board
   function createBoard() {

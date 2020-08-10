@@ -4,12 +4,20 @@ body {
   box-sizing: border-box;
 }
 
+.score-area {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .grid {
   height: 560px;
   width: 560px;
   display: flex;
   flex-wrap: wrap;
   background: rgb(30, 207, 30);
+  margin: auto;
 }
 
 .grid div {
