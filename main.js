@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //   }
   // }
   const grid = document.querySelector(".grid");
-  //const scoreDisplay = document.getElementById("score");
+  const scoreDisplay = document.getElementById("score");
   const width = 8;
   const squares = [];
   let score = 0;
@@ -157,12 +157,30 @@ document.addEventListener("DOMContentLoaded", () => {
       squares[squareIdBeingDragged].style.backgroundColor = colorBeingDragged;
   }
 
+  function moveDown() {
+    for (i = 0; i < 55; i++) {
+      if (squares[i + width].style.backgroundColor === "") {
+        square[i + width].style.backgroundColor =
+          squares[i].style.backgroundColor;
+        squares[i].style.backgroundColor = "";
+        const firstRow = [0, 1, 2, 3, 4, 5, 6, 7];
+        const isFirstRow = firstRow.includes(i);
+        if (isFirstRow && squares[i].style.backgroundColor === "") {
+          let randomColor = Math.random() * candyColors.length();
+          squares[i].style.backgroundColor = candyColors[randomColor];
+        }
+      }
+    }
+  }
+
   function checkRowForThree() {
     for (i = 0; i < 61; i++) {
       let rowOfThree = [i, i + 1, i + 2];
       let decideColor = squares[i].style.backgroundColor;
       const isBlank = squares[i].style.backgroundColor === "";
 
+      const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55];
+      if (notValid.includes(i)) continue;
       if (
         rowOfThree.every(
           (index) =>
@@ -170,13 +188,114 @@ document.addEventListener("DOMContentLoaded", () => {
         )
       ) {
         score += 3;
+        scoreDisplay.innerHTML = score;
         rowOfThree.forEach((index) => {
-          squares[index].style.backgroundColor = "";
+          squares[index].style.backgroundColor = " ";
         });
       }
     }
   }
+
+  checkRowForThree();
+
+  function checkColumnForThree() {
+    for (i = 0; i < 47; i++) {
+      let colOfThree = [i, i + width, i + width * 2];
+      let decideColor = squares[i].style.backgroundColor;
+      const isBlank = squares[i].style.backgroundColor === " ";
+
+      if (
+        colOfThree.every(
+          (index) =>
+            squares[index].style.backgroundColor === decideColor && !isBlank
+        )
+      ) {
+        score += 3;
+        scoreDisplay.innerHTML = score;
+        colOfThree.forEach((index) => {
+          squares[index].style.backgroundColor = " ";
+        });
+      }
+    }
+  }
+
+  checkColumnForThree();
+
+  function checkRowForFour() {
+    for (i = 0; i < 60; i++) {
+      let rowOfFour = [i, i + 1, i + 2, i + 3];
+      let decideColor = squares[i].style.backgroundColor;
+      const isBlank = squares[i].style.backgroundColor === "";
+
+      const notValid = [
+        5,
+        6,
+        7,
+        13,
+        14,
+        15,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        37,
+        38,
+        39,
+        45,
+        46,
+        47,
+        53,
+        54,
+        55,
+      ];
+      if (notValid.includes(i)) continue;
+      if (
+        rowOfFour.every(
+          (index) =>
+            squares[index].style.backgroundColor === decideColor && !isBlank
+        )
+      ) {
+        score += 4;
+        scoreDisplay.innerHTML = score;
+        rowOfFour.forEach((index) => {
+          squares[index].style.backgroundColor = " ";
+        });
+      }
+    }
+  }
+
+  checkRowForFour();
+
+  function checkColumnForFour() {
+    for (i = 0; i < 47; i++) {
+      let colOfFour = [i, i + width, i + width * 2, i + width * 3];
+      let decideColor = squares[i].style.backgroundColor;
+      const isBlank = squares[i].style.backgroundColor === " ";
+
+      if (
+        colOfFour.every(
+          (index) =>
+            squares[index].style.backgroundColor === decideColor && !isBlank
+        )
+      ) {
+        score += 4;
+        scoreDisplay.innerHTML = score;
+        colOfFour.forEach((index) => {
+          squares[index].style.backgroundColor = " ";
+        });
+      }
+    }
+  }
+
+  checkColumnForFour();
+
   window.setInterval(function () {
+    moveDown();
     checkRowForThree();
+    checkColumnForThree();
+    checkRowForFour();
+    checkColumnForFour();
   }, 100);
 });
