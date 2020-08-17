@@ -6,10 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
 
   const blockImage = [
-    "url(image/javascript.png)",
-    "url(image/react.png)",
-    "url(image/vue.png)",
-    "url(image/svelte.png)",
+    "url(images/usa.png)",
+    "url(images/canada.png)",
+    "url(images/germany.png)",
+    "url(images/british.png)",
+    "url(images/japan.png)",
   ];
 
   //create your board

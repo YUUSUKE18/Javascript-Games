@@ -23,4 +23,5 @@ body {
 .grid div {
   height: 70px;
   width: 70px;
+  background-size: cover;
 }
